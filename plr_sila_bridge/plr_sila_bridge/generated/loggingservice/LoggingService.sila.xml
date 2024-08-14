@@ -1,0 +1,230 @@
+<Feature xmlns="http://www.sila-standard.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Category="infrastructure" FeatureVersion="0.3" Originator="de.unigreifswald" SiLA2Version="1.0" xsi:schemaLocation="http://www.sila-standard.org https://gitlab.com/SiLA2/sila_base/raw/master/schema/FeatureDefinition.xsd">
+  <Identifier>LoggingService</Identifier>
+  <DisplayName>Logging Service</DisplayName>
+  <Description>Provides services for integration of SiLA server logging.
+    The service is intended to be used by the server to provide logging information to the client.
+    The client can use the service to listen for log entries from the server.
+    It is possible to listen for all log entries or only for log entries from a specific Stream.
+    Error handling: If the server is not able to provide the requested information, it shall return an error message.</Description>
+  <!-- Commands -->
+  <Command>
+    <Identifier>ListenToLoggingStream</Identifier>
+    <DisplayName>Listen to logging stream</DisplayName>
+    <Description>Starts listening to a logging stream from the SiLA server</Description>
+    <Observable>Yes</Observable>
+    <Parameter>
+      <Identifier>LoggingStreamName</Identifier>
+      <DisplayName>Logging Stream Name (URL)</DisplayName>
+      <Description>The logging stream name (recommended: in form of a URL) to listen to.</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </Parameter>
+    <IntermediateResponse>
+      <Identifier>IntermediateLoggingText</Identifier>
+      <DisplayName>Intermediate Logging Text</DisplayName>
+      <Description>The current logging text of a certain logging stream as it is created by the server</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </IntermediateResponse>
+    <DefinedExecutionErrors>
+      <Identifier>LogginStreamNotAvailable</Identifier>
+    </DefinedExecutionErrors>
+  </Command>
+  <Command>
+    <Identifier>ListenToAllLogEntries</Identifier>
+    <DisplayName>Listen to all log entries</DisplayName>
+    <Description>Starts listening to a stream of all consecutive log entries from the SiLA server</Description>
+    <Observable>Yes</Observable>
+    <IntermediateResponse>
+      <Identifier>IntermediateLoggingEntry</Identifier>
+      <DisplayName>IntermediateLoggingEntry</DisplayName>
+      <Description>Intermediate Log Entries as they are created by the server</Description>
+      <DataType>
+        <List>
+          <DataType>
+            <DataTypeIdentifier>LogEntry</DataTypeIdentifier>
+          </DataType>
+        </List>
+      </DataType>
+    </IntermediateResponse>
+  </Command>
+  <Command>
+    <Identifier>GetLogFile</Identifier>
+    <DisplayName>Get Log File</DisplayName>
+    <Description>Gets the log file from the server.</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>LogFileName</Identifier>
+      <DisplayName>Log File Name (URL)</DisplayName>
+      <Description>The name of the log file (recommended: in URL format) to get.</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </Parameter>
+    <Response>
+      <Identifier>LogFile</Identifier>
+      <DisplayName>Log File (text)</DisplayName>
+      <Description>Log File as text</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </Response>
+    <DefinedExecutionErrors>
+      <Identifier>LogFileNotAvailable</Identifier>
+    </DefinedExecutionErrors>
+  </Command>
+  <Command>
+    <Identifier>SetLogLevel</Identifier>
+    <DisplayName>Set Log Level</DisplayName>
+    <Description>Sets the log level of the server.</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>LogLevel</Identifier>
+      <DisplayName>Log Level</DisplayName>
+      <Description>The log level to set.</Description>
+      <DataType>
+        <Constrained>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+          <Constraints>
+            <Set>
+              <Value>Notset</Value>
+              <Value>Debug</Value>
+              <Value>Info</Value>
+              <Value>Warning</Value>
+              <Value>Error</Value>
+              <Value>Critical</Value>
+            </Set>
+          </Constraints>
+        </Constrained>
+      </DataType>
+    </Parameter>
+  </Command>
+  <!-- Properties -->
+  <Property>
+    <Identifier>LoggingStreamList</Identifier>
+    <DisplayName>Logging Stream (URL) List</DisplayName>
+    <Description>Provides a list of URLs of all logging streams that are currently available on the server.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <List>
+        <DataType>
+          <Basic>String</Basic>
+        </DataType>
+      </List>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>LogFileList</Identifier>
+    <DisplayName>Log Files (URL) List</DisplayName>
+    <Description>Provides a list of URLs of all log files that are currently available on the server.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <List>
+        <DataType>
+          <Basic>String</Basic>
+        </DataType>
+      </List>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>LogLevel</Identifier>
+    <DisplayName>Log Level</DisplayName>
+    <Description>The current log level of the server.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Constrained>
+        <DataType>
+          <Basic>String</Basic>
+        </DataType>
+        <Constraints>
+          <Set>
+            <Value>Notset</Value>
+            <Value>Debug</Value>
+            <Value>Info</Value>
+            <Value>Warning</Value>
+            <Value>Error</Value>
+            <Value>Critical</Value>
+          </Set>
+        </Constraints>
+      </Constrained>
+    </DataType>
+  </Property>
+  <!-- Data Type Definitions-->
+  <DataTypeDefinition>
+    <Identifier>LogEntry</Identifier>
+    <DisplayName>Log Entry</DisplayName>
+    <Description>Describes a log entry</Description>
+    <DataType>
+      <Structure>
+        <Element>
+          <Identifier>Message</Identifier>
+          <DisplayName>Message</DisplayName>
+          <Description>The log message.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>StreamName</Identifier>
+          <DisplayName>StreamName (URL)</DisplayName>
+          <Description>The Stream name (recommended: in URL form), including a hint to the software part that is responsible for the log entry.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>Severity</Identifier>
+          <DisplayName>Severity</DisplayName>
+          <Description>The severity level.</Description>
+          <DataType>
+            <DataTypeIdentifier>Severity</DataTypeIdentifier>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>ExtraInfo</Identifier>
+          <DisplayName>Extra Information</DisplayName>
+          <Description>The additional information in JSON-LD format.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+      </Structure>
+    </DataType>
+  </DataTypeDefinition>
+  <DataTypeDefinition>
+    <Identifier>Severity</Identifier>
+    <DisplayName>Severity</DisplayName>
+    <Description/>
+    <DataType>
+      <Constrained>
+        <DataType>
+          <Basic>String</Basic>
+        </DataType>
+        <Constraints>
+          <Set>
+            <Value>Debug</Value>
+            <Value>Info</Value>
+            <Value>Warning</Value>
+            <Value>Error</Value>
+            <Value>Critical</Value>
+          </Set>
+        </Constraints>
+      </Constrained>
+    </DataType>
+  </DataTypeDefinition>
+  <!-- Defined execution Errors -->
+  <DefinedExecutionError>
+    <Identifier>LogginStreamNotAvailable</Identifier>
+    <DisplayName>Loggin Stream Not Available</DisplayName>
+    <Description>The specified Logging Stream is unavailable. Please check the spelling of the stream URL</Description>
+  </DefinedExecutionError>
+  <DefinedExecutionError>
+    <Identifier>LogFileNotAvailable</Identifier>
+    <DisplayName>Log File Not Available</DisplayName>
+    <Description>The specified Log File is unavailable. Please check the spelling of the file URL</Description>
+  </DefinedExecutionError>
+</Feature>

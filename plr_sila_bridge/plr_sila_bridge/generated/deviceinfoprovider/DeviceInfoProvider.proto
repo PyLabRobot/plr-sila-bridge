@@ -1,0 +1,223 @@
+syntax = "proto3";
+
+import "SiLAFramework.proto";
+
+package sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1;
+
+/* This SiLA feature provides detailed information about a device, like device name, device type, device manufacturer, device product name, device version, device manual, device quick start guide, device service manual, device serial number, device registration number, device barcode, device production date, device purchase date, device end of warrenty, device service dates, device service information, etc. */
+service DeviceInfoProvider {
+  /* Set the output format of the device information, like TEXT, JSON-LD, XML, etc. The recommended default output format is JSON-LD, which allows to provide detailed information about the device in a structured way with semantic annotations / context, referencing to defined vocabularies. */
+  rpc SetOutputFormat (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.SetOutputFormat_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.SetOutputFormat_Responses) {}
+  /* 
+            Name of the Device.
+         */
+  rpc Get_DeviceName (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceName_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceName_Responses) {}
+  /* 
+            Type of the Device.
+         */
+  rpc Get_DeviceType (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceType_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceType_Responses) {}
+  /* 
+            Manufacturer of the Device.
+         */
+  rpc Get_DeviceManufacturer (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceManufacturer_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceManufacturer_Responses) {}
+  /* 
+            Product Name of the Device.
+         */
+  rpc Get_DeviceProductName (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceProductName_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceProductName_Responses) {}
+  /* 
+            Version of the Device.
+         */
+  rpc Get_DeviceVersion (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceVersion_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceVersion_Responses) {}
+  /* 
+            Version of the Device Firmware.
+         */
+  rpc Get_DeviceFirmwareVersion (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceFirmwareVersion_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceFirmwareVersion_Responses) {}
+  /* 
+            URL to Manual of the Device.
+         */
+  rpc Get_DeviceManual (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceManual_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceManual_Responses) {}
+  /* 
+            URL to Quick Start Guide of the Device.
+         */
+  rpc Get_DeviceQuickStartGuide (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceQuickStartGuide_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceQuickStartGuide_Responses) {}
+  /* 
+            URL to Service Manual of the Device.
+         */
+  rpc Get_DeviceServiceManual (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceServiceManual_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceServiceManual_Responses) {}
+  /* 
+            Hardware Settings of the Device, like serial port settings, etc., preferably in JSON-LD format.
+         */
+  rpc Get_HardwareSettings (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_HardwareSettings_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_HardwareSettings_Responses) {}
+  /* 
+            Hardware Configuration of the Device, like racks with n slots, slot spacing, shakers, barcode reader, CO2 unit, etc., 
+            preferably in JSON-LD format.
+         */
+  rpc Get_HardwareConfiguration (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_HardwareConfiguration_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_HardwareConfiguration_Responses) {}
+  /* 
+            Detailed Information about the Device.
+         */
+  rpc Get_DeviceInfo (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceInfo_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_DeviceInfo_Responses) {}
+  /* 
+            Service Dates of the Device.
+         */
+  rpc Get_ServiceDates (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_ServiceDates_Parameters) returns (sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_ServiceDates_Responses) {}
+}
+
+/* Detailed Information about the Device. */
+message DataType_DeviceInfo {
+  message DeviceInfo_Struct {
+    sila2.org.silastandard.String SerialNo = 1;  /* Serial Number of the Device. */
+    sila2.org.silastandard.String PartNo = 2;  /* Part Number of the Device. */
+    sila2.org.silastandard.String RegistrationNo = 3;  /* Registration Number of the Device. */
+    sila2.org.silastandard.String Barcode = 4;  /* Barcode of the Device. */
+    sila2.org.silastandard.Date ProductionDate = 5;  /* Production Date of the Device. */
+    sila2.org.silastandard.Date PurchaseDate = 6;  /* Purchase Date of the Device. */
+    sila2.org.silastandard.Date EndOfWarrenty = 7;  /* End of Warrenty of the Device. */
+    sila2.org.silastandard.String SemanticDeviceInfo = 8;  /* Semantic Device Information of the Device. In JSON-LD format. */
+  }
+  sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.DataType_DeviceInfo.DeviceInfo_Struct DeviceInfo = 1;  /* Detailed Information about the Device. */
+}
+
+/* Detailed Information about the Service. */
+message DataType_ServiceInfo {
+  message ServiceInfo_Struct {
+    sila2.org.silastandard.Date ServiceDate = 1;  /* Service Date of the Device. */
+    sila2.org.silastandard.String ServiceType = 2;  /* Service Type of the Device. */
+    sila2.org.silastandard.String ServiceDescription = 3;  /* Service Description of the Device. */
+    sila2.org.silastandard.String ServiceReport = 4;  /* Service Report of the Device. In JSON-LD format. */
+    sila2.org.silastandard.String ServiceCompany = 5;  /* Service Company of the Device. Info in JSON-LD format */
+    sila2.org.silastandard.String ServiceEngineer = 6;  /* Service Engineer of Device in JSON-LD format. */
+  }
+  sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.DataType_ServiceInfo.ServiceInfo_Struct ServiceInfo = 1;  /* Detailed Information about the Service. */
+}
+
+/* Parameters for SetOutputFormat */
+message SetOutputFormat_Parameters {
+  sila2.org.silastandard.String OutputFormat = 1;  /* Output format of the device information. */
+}
+
+/* Responses of SetOutputFormat */
+message SetOutputFormat_Responses {
+}
+
+/* Parameters for DeviceName */
+message Get_DeviceName_Parameters {
+}
+
+/* Responses of DeviceName */
+message Get_DeviceName_Responses {
+  sila2.org.silastandard.String DeviceName = 1;  /* Name of the Device. */
+}
+
+/* Parameters for DeviceType */
+message Get_DeviceType_Parameters {
+}
+
+/* Responses of DeviceType */
+message Get_DeviceType_Responses {
+  sila2.org.silastandard.String DeviceType = 1;  /* Type of the Device. */
+}
+
+/* Parameters for DeviceManufacturer */
+message Get_DeviceManufacturer_Parameters {
+}
+
+/* Responses of DeviceManufacturer */
+message Get_DeviceManufacturer_Responses {
+  sila2.org.silastandard.String DeviceManufacturer = 1;  /* Manufacturer of the Device. */
+}
+
+/* Parameters for DeviceProductName */
+message Get_DeviceProductName_Parameters {
+}
+
+/* Responses of DeviceProductName */
+message Get_DeviceProductName_Responses {
+  sila2.org.silastandard.String DeviceProductName = 1;  /* Product Name of the Device. */
+}
+
+/* Parameters for DeviceVersion */
+message Get_DeviceVersion_Parameters {
+}
+
+/* Responses of DeviceVersion */
+message Get_DeviceVersion_Responses {
+  sila2.org.silastandard.String DeviceVersion = 1;  /* Version of the Device. */
+}
+
+/* Parameters for DeviceFirmwareVersion */
+message Get_DeviceFirmwareVersion_Parameters {
+}
+
+/* Responses of DeviceFirmwareVersion */
+message Get_DeviceFirmwareVersion_Responses {
+  sila2.org.silastandard.String DeviceFirmwareVersion = 1;  /* Version of the Device Firmware. */
+}
+
+/* Parameters for DeviceManual */
+message Get_DeviceManual_Parameters {
+}
+
+/* Responses of DeviceManual */
+message Get_DeviceManual_Responses {
+  sila2.org.silastandard.String DeviceManual = 1;  /* URL to Manual of the Device. */
+}
+
+/* Parameters for DeviceQuickStartGuide */
+message Get_DeviceQuickStartGuide_Parameters {
+}
+
+/* Responses of DeviceQuickStartGuide */
+message Get_DeviceQuickStartGuide_Responses {
+  sila2.org.silastandard.String DeviceQuickStartGuide = 1;  /* URL to Quick Start Guide of the Device. */
+}
+
+/* Parameters for DeviceServiceManual */
+message Get_DeviceServiceManual_Parameters {
+}
+
+/* Responses of DeviceServiceManual */
+message Get_DeviceServiceManual_Responses {
+  sila2.org.silastandard.String DeviceServiceManual = 1;  /* URL to Service Manual of the Device. */
+}
+
+/* Parameters for HardwareSettings */
+message Get_HardwareSettings_Parameters {
+}
+
+/* Responses of HardwareSettings */
+message Get_HardwareSettings_Responses {
+  sila2.org.silastandard.String HardwareSettings = 1;  /* Hardware Settings of the Device, like serial port settings, etc., preferably in JSON-LD format. */
+}
+
+/* Parameters for HardwareConfiguration */
+message Get_HardwareConfiguration_Parameters {
+}
+
+/* Responses of HardwareConfiguration */
+message Get_HardwareConfiguration_Responses {
+  sila2.org.silastandard.String HardwareConfiguration = 1;  /* Hardware Configuration of the Device, like racks with n slots, slot spacing, shakers, barcode reader, CO2 unit, etc., preferably in JSON-LD format. */
+}
+
+/* Parameters for DeviceInfo */
+message Get_DeviceInfo_Parameters {
+}
+
+/* Responses of DeviceInfo */
+message Get_DeviceInfo_Responses {
+  sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.DataType_DeviceInfo DeviceInfo = 1;  /* Detailed Information about the Device. */
+}
+
+/* Parameters for ServiceDates */
+message Get_ServiceDates_Parameters {
+}
+
+/* Responses of ServiceDates */
+message Get_ServiceDates_Responses {
+  message ServiceDates_Struct {
+    repeated sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.DataType_ServiceInfo ServiceInfoList = 1;  /* List of Service Information of the Device. */
+    sila2.org.silastandard.Date LastServiceDate = 2;  /* Last Service Date of the Device. */
+    sila2.org.silastandard.Date NextServiceDate = 3;  /* Next Service Date of the Device. */
+  }
+  sila2.de.unigreifswald.biochemie.device.deviceinfoprovider.v1.Get_ServiceDates_Responses.ServiceDates_Struct ServiceDates = 1;  /* Service Dates of the Device. */
+}

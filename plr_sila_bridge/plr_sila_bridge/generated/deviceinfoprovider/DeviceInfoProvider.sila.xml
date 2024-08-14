@@ -1,0 +1,316 @@
+<Feature xmlns="http://www.sila-standard.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Category="device" FeatureVersion="1.1" MaturityLevel="Draft" Originator="de.unigreifswald.biochemie" SiLA2Version="1.0" xsi:schemaLocation="http://www.sila-standard.org https://gitlab.com/SiLA2/sila_base/raw/master/schema/FeatureDefinition.xsd">
+  <Identifier>DeviceInfoProvider</Identifier>
+  <DisplayName>Device Info Provider</DisplayName>
+  <Description>This SiLA feature provides detailed information about a device, like device name, device type, 
+        device manufacturer, device product name, device version, device manual, device quick start guide, 
+        device service manual, device serial number, device registration number, device barcode, device production date, 
+        device purchase date, device end of warrenty, device service dates, device service information, etc.</Description>
+  <!-- Commands -->
+  <Command>
+    <Identifier>SetOutputFormat</Identifier>
+    <DisplayName>Set Output Format</DisplayName>
+    <Description>Set the output format of the device information, like TEXT, JSON-LD, XML, etc.
+            The recommended default output format is JSON-LD, which allows to provide detailed information about the device in a structured way with semantic annotations / context, referencing to defined vocabularies.</Description>
+    <Observable>No</Observable>
+    <Parameter>
+      <Identifier>OutputFormat</Identifier>
+      <DisplayName>Output Format</DisplayName>
+      <Description>Output format of the device information.</Description>
+      <DataType>
+        <Basic>String</Basic>
+      </DataType>
+    </Parameter>
+    <DefinedExecutionErrors>
+      <Identifier>OutputFormatNotSupported</Identifier>
+    </DefinedExecutionErrors>
+  </Command>
+  <!-- Properties -->
+  <!-- DeviceName, DeviceType DeviceInfo, ServiceDates-->
+  <Property>
+    <Identifier>DeviceName</Identifier>
+    <DisplayName>Device Name</DisplayName>
+    <Description>Name of the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>DeviceType</Identifier>
+    <DisplayName>Device Type, like incubator, shaker, etc., in JSON-LD format.</DisplayName>
+    <Description>Type of the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>DeviceManufacturer</Identifier>
+    <DisplayName>Device Manufacturer, like Eppendorf, ThermoFisher, etc., in JSON-LD format.</DisplayName>
+    <Description>Manufacturer of the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>DeviceProductName</Identifier>
+    <DisplayName>Device Product Name, like Eppendorf 5415R, ThermoFisher 1234, etc., in JSON-LD format.</DisplayName>
+    <Description>Product Name of the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>DeviceVersion</Identifier>
+    <DisplayName>Device Version, like Eppendorf 5415R, ThermoFisher 1234, etc., in JSON-LD format.</DisplayName>
+    <Description>Version of the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>DeviceFirmwareVersion</Identifier>
+    <DisplayName>Device Firmware Version, like 50122578-B, 1.2, 0.0.2, in JSON-LD format.</DisplayName>
+    <Description>Version of the Device Firmware.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>DeviceManual</Identifier>
+    <DisplayName>Device Manual, like Eppendorf 5415R, ThermoFisher 1234, etc., URL.</DisplayName>
+    <Description>URL to Manual of the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>DeviceQuickStartGuide</Identifier>
+    <DisplayName>URL to Device Quick Start Guide, like Eppendorf 5415R, ThermoFisher 1234, etc., URL.</DisplayName>
+    <Description>URL to Quick Start Guide of the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>DeviceServiceManual</Identifier>
+    <DisplayName>Device Service Manual, like Eppendorf 5415R, ThermoFisher 1234, etc., URL.</DisplayName>
+    <Description>URL to Service Manual of the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>HardwareSettings</Identifier>
+    <DisplayName>Hardware Settings</DisplayName>
+    <Description>Hardware Settings of the Device, like serial port settings, etc., preferably in JSON-LD format.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>HardwareConfiguration</Identifier>
+    <DisplayName>Hardware Configuration</DisplayName>
+    <Description>Hardware Configuration of the Device, like racks with n slots, slot spacing, shakers, barcode reader, CO2 unit, etc., 
+            preferably in JSON-LD format.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Basic>String</Basic>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>DeviceInfo</Identifier>
+    <DisplayName>Device Information</DisplayName>
+    <Description>Detailed Information about the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <DataTypeIdentifier>DeviceInfo</DataTypeIdentifier>
+    </DataType>
+  </Property>
+  <Property>
+    <Identifier>ServiceDates</Identifier>
+    <DisplayName>Service Dates</DisplayName>
+    <Description>Service Dates of the Device.</Description>
+    <Observable>No</Observable>
+    <DataType>
+      <Structure>
+        <Element>
+          <Identifier>ServiceInfoList</Identifier>
+          <DisplayName>Service Information List</DisplayName>
+          <Description>List of Service Information of the Device.</Description>
+          <DataType>
+            <List>
+              <DataType>
+                <DataTypeIdentifier>ServiceInfo</DataTypeIdentifier>
+              </DataType>
+            </List>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>LastServiceDate</Identifier>
+          <DisplayName>Last Service Date</DisplayName>
+          <Description>Last Service Date of the Device.</Description>
+          <DataType>
+            <Basic>Date</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>NextServiceDate</Identifier>
+          <DisplayName>Next Service Date</DisplayName>
+          <Description>Next Service Date of the Device.</Description>
+          <DataType>
+            <Basic>Date</Basic>
+          </DataType>
+        </Element>
+      </Structure>
+    </DataType>
+  </Property>
+  <!-- Data Type Definitions-->
+  <DataTypeDefinition>
+    <Identifier>DeviceInfo</Identifier>
+    <DisplayName>Device Information</DisplayName>
+    <Description>Detailed Information about the Device.</Description>
+    <DataType>
+      <Structure>
+        <!-- Serial No., RegistrationNo, Barcode,  PurchaseDate, EndOfWarrenty-->
+        <Element>
+          <Identifier>SerialNo</Identifier>
+          <DisplayName>Serial Number</DisplayName>
+          <Description>Serial Number of the Device.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>PartNo</Identifier>
+          <DisplayName>Part Number</DisplayName>
+          <Description>Part Number of the Device.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>RegistrationNo</Identifier>
+          <DisplayName>Registration Number</DisplayName>
+          <Description>Registration Number of the Device.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>Barcode</Identifier>
+          <DisplayName>Barcode</DisplayName>
+          <Description>Barcode of the Device.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>ProductionDate</Identifier>
+          <DisplayName>Production Date</DisplayName>
+          <Description>Production Date of the Device.</Description>
+          <DataType>
+            <Basic>Date</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>PurchaseDate</Identifier>
+          <DisplayName>Purchase Date</DisplayName>
+          <Description>Purchase Date of the Device.</Description>
+          <DataType>
+            <Basic>Date</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>EndOfWarrenty</Identifier>
+          <DisplayName>End of Warrenty</DisplayName>
+          <Description>End of Warrenty of the Device.</Description>
+          <DataType>
+            <Basic>Date</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>SemanticDeviceInfo</Identifier>
+          <DisplayName>Semantic Device Information</DisplayName>
+          <Description>Semantic Device Information of the Device. In JSON-LD format.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+      </Structure>
+    </DataType>
+  </DataTypeDefinition>
+  <DataTypeDefinition>
+    <Identifier>ServiceInfo</Identifier>
+    <DisplayName>Service Information</DisplayName>
+    <Description>Detailed Information about the Service.</Description>
+    <DataType>
+      <Structure>
+        <!-- ServiceDate, ServiceType, ServiceDescription, ServiceReport-->
+        <Element>
+          <Identifier>ServiceDate</Identifier>
+          <DisplayName>Service Date</DisplayName>
+          <Description>Service Date of the Device.</Description>
+          <DataType>
+            <Basic>Date</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>ServiceType</Identifier>
+          <DisplayName>Service Type</DisplayName>
+          <Description>Service Type of the Device.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>ServiceDescription</Identifier>
+          <DisplayName>Service Description</DisplayName>
+          <Description>Service Description of the Device.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>ServiceReport</Identifier>
+          <DisplayName>Service Report</DisplayName>
+          <Description>Service Report of the Device. In JSON-LD format.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <!-- Service Commpany, Engineer, -->
+        <Element>
+          <Identifier>ServiceCompany</Identifier>
+          <DisplayName>Service Company</DisplayName>
+          <Description>Service Company of the Device. Info in JSON-LD format</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+        <Element>
+          <Identifier>ServiceEngineer</Identifier>
+          <DisplayName>ServiceEngineer</DisplayName>
+          <Description>Service Engineer of Device in JSON-LD format.</Description>
+          <DataType>
+            <Basic>String</Basic>
+          </DataType>
+        </Element>
+      </Structure>
+    </DataType>
+  </DataTypeDefinition>
+  <!-- Defined Execution Errors-->
+  <DefinedExecutionError>
+    <Identifier>OutputFormatNotSupported</Identifier>
+    <DisplayName>Output Format Not Supported</DisplayName>
+    <Description>The output format is not supported.</Description>
+  </DefinedExecutionError>
+</Feature>

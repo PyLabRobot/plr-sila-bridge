@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+import "SiLAFramework.proto";
+
+package sila2.de.unigreifswald.infrastructure.loggingservice.v0;
+
+/* Provides services for integration of SiLA server logging. The service is intended to be used by the server to provide logging information to the client. The client can use the service to listen for log entries from the server. It is possible to listen for all log entries or only for log entries from a specific Stream. Error handling: If the server is not able to provide the requested information, it shall return an error message. */
+service LoggingService {
+  /* Starts listening to a logging stream from the SiLA server */
+  rpc ListenToLoggingStream (sila2.de.unigreifswald.infrastructure.loggingservice.v0.ListenToLoggingStream_Parameters) returns (sila2.org.silastandard.CommandConfirmation) {}
+  /* Monitor the state of ListenToLoggingStream */
+  rpc ListenToLoggingStream_Info (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.org.silastandard.ExecutionInfo) {}
+  /* Retrieve intermediate responses of ListenToLoggingStream */
+  rpc ListenToLoggingStream_Intermediate (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.de.unigreifswald.infrastructure.loggingservice.v0.ListenToLoggingStream_IntermediateResponses) {}
+  /* Retrieve result of ListenToLoggingStream */
+  rpc ListenToLoggingStream_Result(sila2.org.silastandard.CommandExecutionUUID) returns (sila2.de.unigreifswald.infrastructure.loggingservice.v0.ListenToLoggingStream_Responses) {}
+  /* Starts listening to a stream of all consecutive log entries from the SiLA server */
+  rpc ListenToAllLogEntries (sila2.de.unigreifswald.infrastructure.loggingservice.v0.ListenToAllLogEntries_Parameters) returns (sila2.org.silastandard.CommandConfirmation) {}
+  /* Monitor the state of ListenToAllLogEntries */
+  rpc ListenToAllLogEntries_Info (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.org.silastandard.ExecutionInfo) {}
+  /* Retrieve intermediate responses of ListenToAllLogEntries */
+  rpc ListenToAllLogEntries_Intermediate (sila2.org.silastandard.CommandExecutionUUID) returns (stream sila2.de.unigreifswald.infrastructure.loggingservice.v0.ListenToAllLogEntries_IntermediateResponses) {}
+  /* Retrieve result of ListenToAllLogEntries */
+  rpc ListenToAllLogEntries_Result(sila2.org.silastandard.CommandExecutionUUID) returns (sila2.de.unigreifswald.infrastructure.loggingservice.v0.ListenToAllLogEntries_Responses) {}
+  /* Gets the log file from the server. */
+  rpc GetLogFile (sila2.de.unigreifswald.infrastructure.loggingservice.v0.GetLogFile_Parameters) returns (sila2.de.unigreifswald.infrastructure.loggingservice.v0.GetLogFile_Responses) {}
+  /* Sets the log level of the server. */
+  rpc SetLogLevel (sila2.de.unigreifswald.infrastructure.loggingservice.v0.SetLogLevel_Parameters) returns (sila2.de.unigreifswald.infrastructure.loggingservice.v0.SetLogLevel_Responses) {}
+  /* Provides a list of URLs of all logging streams that are currently available on the server. */
+  rpc Get_LoggingStreamList (sila2.de.unigreifswald.infrastructure.loggingservice.v0.Get_LoggingStreamList_Parameters) returns (sila2.de.unigreifswald.infrastructure.loggingservice.v0.Get_LoggingStreamList_Responses) {}
+  /* Provides a list of URLs of all log files that are currently available on the server. */
+  rpc Get_LogFileList (sila2.de.unigreifswald.infrastructure.loggingservice.v0.Get_LogFileList_Parameters) returns (sila2.de.unigreifswald.infrastructure.loggingservice.v0.Get_LogFileList_Responses) {}
+  /* The current log level of the server. */
+  rpc Get_LogLevel (sila2.de.unigreifswald.infrastructure.loggingservice.v0.Get_LogLevel_Parameters) returns (sila2.de.unigreifswald.infrastructure.loggingservice.v0.Get_LogLevel_Responses) {}
+}
+
+/* Describes a log entry */
+message DataType_LogEntry {
+  message LogEntry_Struct {
+    sila2.org.silastandard.String Message = 1;  /* The log message. */
+    sila2.org.silastandard.String StreamName = 2;  /* The Stream name (recommended: in URL form), including a hint to the software part that is responsible for the log entry. */
+    sila2.de.unigreifswald.infrastructure.loggingservice.v0.DataType_Severity Severity = 3;  /* The severity level. */
+    sila2.org.silastandard.String ExtraInfo = 4;  /* The additional information in JSON-LD format. */
+  }
+  sila2.de.unigreifswald.infrastructure.loggingservice.v0.DataType_LogEntry.LogEntry_Struct LogEntry = 1;  /* Describes a log entry */
+}
+
+/*  */
+message DataType_Severity {
+  sila2.org.silastandard.String Severity = 1;  /*  */
+}
+
+/* Parameters for ListenToLoggingStream */
+message ListenToLoggingStream_Parameters {
+  sila2.org.silastandard.String LoggingStreamName = 1;  /* The logging stream name (recommended: in form of a URL) to listen to. */
+}
+
+/* Responses of ListenToLoggingStream */
+message ListenToLoggingStream_Responses {
+}
+
+/* Intermediate responses of ListenToLoggingStream */
+message ListenToLoggingStream_IntermediateResponses {
+  sila2.org.silastandard.String IntermediateLoggingText = 1;  /* The current logging text of a certain logging stream as it is created by the server */
+}
+
+/* Parameters for ListenToAllLogEntries */
+message ListenToAllLogEntries_Parameters {
+}
+
+/* Responses of ListenToAllLogEntries */
+message ListenToAllLogEntries_Responses {
+}
+
+/* Intermediate responses of ListenToAllLogEntries */
+message ListenToAllLogEntries_IntermediateResponses {
+  repeated sila2.de.unigreifswald.infrastructure.loggingservice.v0.DataType_LogEntry IntermediateLoggingEntry = 1;  /* Intermediate Log Entries as they are created by the server */
+}
+
+/* Parameters for GetLogFile */
+message GetLogFile_Parameters {
+  sila2.org.silastandard.String LogFileName = 1;  /* The name of the log file (recommended: in URL format) to get. */
+}
+
+/* Responses of GetLogFile */
+message GetLogFile_Responses {
+  sila2.org.silastandard.String LogFile = 1;  /* Log File as text */
+}
+
+/* Parameters for SetLogLevel */
+message SetLogLevel_Parameters {
+  sila2.org.silastandard.String LogLevel = 1;  /* The log level to set. */
+}
+
+/* Responses of SetLogLevel */
+message SetLogLevel_Responses {
+}
+
+/* Parameters for LoggingStreamList */
+message Get_LoggingStreamList_Parameters {
+}
+
+/* Responses of LoggingStreamList */
+message Get_LoggingStreamList_Responses {
+  repeated sila2.org.silastandard.String LoggingStreamList = 1;  /* Provides a list of URLs of all logging streams that are currently available on the server. */
+}
+
+/* Parameters for LogFileList */
+message Get_LogFileList_Parameters {
+}
+
+/* Responses of LogFileList */
+message Get_LogFileList_Responses {
+  repeated sila2.org.silastandard.String LogFileList = 1;  /* Provides a list of URLs of all log files that are currently available on the server. */
+}
+
+/* Parameters for LogLevel */
+message Get_LogLevel_Parameters {
+}
+
+/* Responses of LogLevel */
+message Get_LogLevel_Responses {
+  sila2.org.silastandard.String LogLevel = 1;  /* The current log level of the server. */
+}
