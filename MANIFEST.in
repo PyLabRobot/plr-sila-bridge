@@ -1,0 +1,3 @@
+# add files to be included in package here
+include VERSION
+include *.txt
